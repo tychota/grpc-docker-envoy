@@ -1,12 +1,20 @@
+import { join } from 'path';
+
 import { Controller, Get, Param } from '@nestjs/common';
-import { Client, ClientGrpc } from '@nestjs/microservices';
+import { Client, ClientGrpc, Transport } from '@nestjs/microservices';
 
 import { HeroService } from '../../private-hero/src/hero.controller';
-import { grpcClientOptions } from '../../private-hero/src/grpc.client';
 
 @Controller()
 export class AppController {
-  @Client(grpcClientOptions)
+  @Client({
+    transport: Transport.GRPC,
+    options: {
+      url: 'ms-proxy:50051',
+      package: 'hero',
+      protoPath: join(__dirname, '..', 'proto/hero.proto'),
+    },
+  })
   private readonly client!: ClientGrpc;
 
   private heroService!: HeroService;

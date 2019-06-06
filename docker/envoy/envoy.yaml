@@ -1,0 +1,52 @@
+static_resources:
+  listeners:
+    - name: listener_0
+      address:
+        socket_address:
+          address: 0.0.0.0
+          port_value: 50051
+      filter_chains:
+        - filters:
+            - name: envoy.http_connection_manager
+              config:
+                codec_type: auto
+                stat_prefix: ingress_http
+                access_log:
+                  - name: envoy.file_access_log
+                    config:
+                      path: '/dev/stdout'
+                route_config:
+                  name: local_route
+                  virtual_hosts:
+                    - name: micro-service
+                      domains:
+                        - '*'
+                      routes:
+                        - match:
+                            prefix: '/hero.HeroService/'
+                          route:
+                            cluster: hero_microservice
+                http_filters:
+                  - name: envoy.router
+                    config: {}
+  clusters:
+    - name: hero_microservice
+      connect_timeout: 0.25s
+      type: strict_dns
+      lb_policy: round_robin
+      http2_protocol_options: {}
+      load_assignment:
+        cluster_name: local_service
+        endpoints:
+          - lb_endpoints:
+              endpoint:
+                address:
+                  socket_address:
+                    address: private-hero
+                    port_value: 50051
+admin:
+  access_log_path: /tmp/admin_access.log
+  address:
+    socket_address:
+      address: 0.0.0.0
+      port_value: 8001

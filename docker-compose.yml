@@ -11,6 +11,13 @@ services:
     command: nodemon /srv/dist/index.js
     ports:
       - '7000:7000'
+  ms-proxy:
+    build:
+      context: ./docker/envoy
+      dockerfile: ./Dockerfile
+    ports:
+      - '8001:8001'
+      - '50051:50051'
   private-hero:
     build:
       context: ./packages/private-hero
