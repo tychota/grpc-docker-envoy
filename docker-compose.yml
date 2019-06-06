@@ -1,0 +1,21 @@
+version: '3.3'
+
+services:
+  public-gateway:
+    build:
+      context: ./packages/public-gateway
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./packages/public-gateway/dist:/srv/dist
+      - ./packages/private-hero/proto/hero.proto:/srv/proto/hero.proto
+    command: nodemon /srv/dist/index.js
+    ports:
+      - '7000:7000'
+  private-hero:
+    build:
+      context: ./packages/private-hero
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./packages/private-hero/dist:/srv/dist
+      - ./packages/private-hero/proto/hero.proto:/srv/proto/hero.proto
+    command: nodemon /srv/dist/index.js
