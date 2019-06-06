@@ -4,7 +4,7 @@
   "dependencies": {},
   "scripts": {
     "postinstall": "lerna bootstrap",
-    "start": "lerna run start",
+    "start": "lerna run start --stream",
     "build": "lerna run build",
     "test": "tsdx test --env=jsdom"
   },
