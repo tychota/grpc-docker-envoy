@@ -1,0 +1,50 @@
+{
+  "name": "public-gateway",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "umd:main": "dist/public-gateway.umd.production.js",
+  "module": "dist/public-gateway.es.production.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "tsdx watch --format=cjs",
+    "build": "tsdx build --format=cjs",
+    "test": "tsdx test",
+    "postinstall": "patch-package"
+  },
+  "peerDependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.13",
+    "husky": "^2.4.0",
+    "patch-package": "^6.1.2",
+    "postinstall-postinstall": "^2.0.0",
+    "prettier": "^1.17.1",
+    "pretty-quick": "^1.11.0",
+    "tsdx": "^0.6.1",
+    "tslib": "^1.9.3",
+    "typescript": "^3.5.1"
+  },
+  "dependencies": {
+    "@grpc/proto-loader": "^0.5.1",
+    "@nestjs/common": "^6.3.0",
+    "@nestjs/core": "^6.3.0",
+    "@nestjs/microservices": "^6.3.0",
+    "@nestjs/platform-express": "^6.3.0",
+    "grpc": "^1.21.1",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^6.5.2"
+  }
+}

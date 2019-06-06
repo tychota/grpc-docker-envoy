@@ -1,0 +1,24 @@
+patch-package
+--- a/node_modules/tsdx/dist/.progress-estimator/9a3492e73be0eb3875889eb84075f018f90b4f72
++++ b/node_modules/tsdx/dist/.progress-estimator/9a3492e73be0eb3875889eb84075f018f90b4f72
+@@ -1,4 +1,3 @@
+-3024
+ 16052
+ 3268
+ 3147
+@@ -8,3 +7,4 @@
+ 3669
+ 3844
+ 3276
++2781
+\ No newline at end of file
+--- a/node_modules/tsdx/dist/createRollupConfig.js
++++ b/node_modules/tsdx/dist/createRollupConfig.js
+@@ -127,6 +127,7 @@ function createRollupConfig(format, env, opts) {
+             },
+             rollup_plugin_typescript2_1.default({
+                 typescript: require('typescript'),
++                include: ["../**/*ts"],
+                 cacheRoot: `./.rts2_cache_${format}`,
+                 tsconfig: opts.tsconfig,
+                 tsconfigDefaults: {
