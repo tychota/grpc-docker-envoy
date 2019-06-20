@@ -6,6 +6,7 @@ services:
       context: ./packages/public-gateway
       dockerfile: ./Dockerfile
     volumes:
+      - ./certs:/srv/certs
       - ./packages/public-gateway/dist:/srv/dist
       - ./packages/private-hero/proto/hero.proto:/srv/proto/hero.proto
     command: nodemon /srv/dist/index.js
@@ -18,11 +19,14 @@ services:
     ports:
       - '8001:8001'
       - '50051:50051'
+    volumes:
+      - ./certs:/etc/certs
   private-hero:
     build:
       context: ./packages/private-hero
       dockerfile: ./Dockerfile
     volumes:
+      - ./certs:/srv/certs
       - ./packages/private-hero/dist:/srv/dist
       - ./packages/private-hero/proto/hero.proto:/srv/proto/hero.proto
     command: nodemon /srv/dist/index.js

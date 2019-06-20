@@ -21,6 +21,11 @@ update: ;@echo "Updating ${PROJECT}....."; \
 	git pull --rebase; \
 	npm install
 
+cert: ;@echo "Generating certs for ${PROJECT}....."; \
+	cd certs; \
+	./createRootCA.sh; \
+	./createSelfSignedCertificate.sh
+
 clean : ;
 	docker-compose build --no-cache \
 
