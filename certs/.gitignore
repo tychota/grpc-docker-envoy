@@ -1,0 +1,6 @@
+rootCA.key
+rootCA.pem
+server.crt
+server.csr
+server.key
+.srl

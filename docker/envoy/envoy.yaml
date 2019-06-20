@@ -29,14 +29,25 @@ static_resources:
                 http_filters:
                   - name: envoy.router
                     config: {}
+          tls_context:
+            common_tls_context:
+              alpn_protocols: 'h2'
+              tls_certificates:
+                certificate_chain: { filename: '/etc/certs/server.crt' }
+                private_key: { filename: '/etc/certs/server.key' }
   clusters:
     - name: hero_microservice
       connect_timeout: 0.25s
       type: strict_dns
       lb_policy: maglev
       http2_protocol_options: {}
-      tls_context: # What Host header should **Envoy** send to the upstream service?
-        sni: private-hero.envoy.docker
+      tls_context:
+        sni: private-hero
+        common_tls_context:
+          alpn_protocols: 'h2'
+          tls_certificates:
+            certificate_chain: { filename: '/etc/certs/server.crt' }
+            private_key: { filename: '/etc/certs/server.key' }
       load_assignment:
         cluster_name: local_service
         endpoints:

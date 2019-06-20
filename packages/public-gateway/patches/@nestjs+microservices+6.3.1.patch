@@ -1,0 +1,15 @@
+diff --git a/node_modules/@nestjs/microservices/client/client-grpc.js b/node_modules/@nestjs/microservices/client/client-grpc.js
+index 70bc473..1c147f8 100644
+--- a/node_modules/@nestjs/microservices/client/client-grpc.js
++++ b/node_modules/@nestjs/microservices/client/client-grpc.js
+@@ -35,7 +35,9 @@ class ClientGrpcProxy extends client_proxy_1.ClientProxy {
+         if (!this.grpcClient[name]) {
+             throw new invalid_grpc_service_exception_1.InvalidGrpcServiceException();
+         }
+-        const grpcClient = new this.grpcClient[name](this.url, options.credentials || grpcPackage.credentials.createInsecure(), options);
++        const credentials = options.credentials || grpcPackage.credentials.createInsecure();
++        delete options.credentials;
++        const grpcClient = new this.grpcClient[name](this.url, credentials, options);
+         const protoMethods = Object.keys(this.grpcClient[name].prototype);
+         const grpcService = {};
+         protoMethods.forEach(m => {

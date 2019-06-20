@@ -1,9 +1,17 @@
 import { join } from 'path';
+import { readFileSync } from 'fs';
+import grpc from 'grpc';
 
 import { Controller, Get, Param } from '@nestjs/common';
 import { Client, ClientGrpc, Transport } from '@nestjs/microservices';
 
 import { HeroService } from '../../private-hero/src/hero.controller';
+
+  const credentials = grpc.credentials.createSsl(
+    readFileSync('/srv/certs/rootCA.pem'),
+    readFileSync('/srv/certs/server.key'),
+    readFileSync('/srv/certs/server.crt')
+  );
 
 @Controller()
 export class AppController {
@@ -13,6 +21,7 @@ export class AppController {
       url: 'ms-proxy:50051',
       package: 'hero',
       protoPath: join(__dirname, '..', 'proto/hero.proto'),
+      credentials,
     },
   })
   private readonly client!: ClientGrpc;
