@@ -11,7 +11,7 @@ test: ;@echo "Testing ${PROJECT}....."; \
 	echo ""
 
 server : ;@echo "Starting ${PROJECT}....."; \
-	docker-compose up --build --force-recreate -d; \
+	docker-compose up --build --force-recreate -d --scale private-hero=3; \
 	yarn start
 
 install: ;@echo "Installing ${PROJECT}....."; \

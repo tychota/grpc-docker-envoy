@@ -33,8 +33,10 @@ static_resources:
     - name: hero_microservice
       connect_timeout: 0.25s
       type: strict_dns
-      lb_policy: round_robin
+      lb_policy: maglev
       http2_protocol_options: {}
+      tls_context: # What Host header should **Envoy** send to the upstream service?
+        sni: private-hero.envoy.docker
       load_assignment:
         cluster_name: local_service
         endpoints:

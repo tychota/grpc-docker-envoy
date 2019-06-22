@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Logger } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
 import { HeroById } from './interfaces/hero-by-id.interface';
@@ -12,6 +12,7 @@ export interface HeroService {
 export class HeroController {
   @GrpcMethod('HeroService')
   findOne(data: HeroById): Hero | undefined {
+    Logger.log(data);
     const items: Hero[] = [{ id: 1, name: 'John' }, { id: 2, name: 'Doe' }];
     return items.find(({ id }) => id === data.id);
   }
