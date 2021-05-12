@@ -39,7 +39,7 @@
     "@nestjs/common": "^6.3.0",
     "@nestjs/core": "^6.3.0",
     "@nestjs/microservices": "^6.3.0",
-    "grpc": "^1.21.1",
+    "grpc": "^1.24.9",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.2"
   }
